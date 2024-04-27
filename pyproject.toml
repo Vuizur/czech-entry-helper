@@ -12,6 +12,7 @@ pyside6 = "^6.7.0"
 pyperclip = "^1.8.2"
 
 
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

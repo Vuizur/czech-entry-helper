@@ -74,9 +74,11 @@ class WiktionaryApp(QMainWindow):
         )
         webbrowser.open(link)
 
-
-if __name__ == "__main__":
+def run_app():
     app = QApplication(sys.argv)
     window = WiktionaryApp()
     window.show()
     sys.exit(app.exec())
+
+if __name__ == "__main__":
+    run_app()
