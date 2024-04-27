@@ -1,6 +1,8 @@
 # Czech entry helper
 
-A simple tool to make it easier to add common Czech words. Supports currently adjectives and adverbs.
+A simple GUI tool to make it easier to add common Czech words. Supports currently adjectives and adverbs.
+
+It will open the relevant new page and put the proposed content into your clipboard.
 
 Attention: Use with care, it makes mistakes.
 
