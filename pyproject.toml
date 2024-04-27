@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "czech-entry-helper"
+version = "0.1.0"
+description = ""
+authors = ["Vuizur <Vuizur@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12, <3.13"
+wordfreq = "^3.1.1"
+pyside6 = "^6.7.0"
+pyperclip = "^1.8.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
