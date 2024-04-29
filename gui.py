@@ -9,10 +9,13 @@ from PySide6.QtWidgets import (
     QWidget,
     QLineEdit,
     QButtonGroup,
-    QCheckBox
+    QCheckBox,
 )
 
-from czech_entry_helper.automatic_entry_creation import create_wiktionary_entry
+from czech_entry_helper.automatic_entry_creation import (
+    create_noun_wiktionary_entry,
+    create_wiktionary_entry,
+)
 import webbrowser
 
 
@@ -53,9 +56,25 @@ class WiktionaryApp(QMainWindow):
         self.layout.addWidget(self.definition_label)
         self.layout.addWidget(self.definition_input)
 
-        self.approved_label = QLabel("Comparative:")
+        self.comp_label = QLabel("Comparative:")
         self.comparative_checkbox = QCheckBox("Has comparative")
         self.layout.addWidget(self.comparative_checkbox)
+
+        self.gender_label = QLabel("Gender:")
+        self.gender_radio_group = QButtonGroup()
+        self.m_button = QRadioButton("Male")
+        self.n_button = QRadioButton("Neuter")
+        self.f_button = QRadioButton("Feminine")
+        self.gender_radio_group.addButton(self.m_button)
+        self.gender_radio_group.addButton(self.n_button)
+        self.gender_radio_group.addButton(self.f_button)
+        self.layout.addWidget(self.gender_label)
+        self.layout.addWidget(self.m_button)
+        self.layout.addWidget(self.n_button)
+        self.layout.addWidget(self.f_button)
+
+        self.animate_checkbox = QCheckBox("Animate")
+        self.layout.addWidget(self.animate_checkbox)
 
         self.create_button = QPushButton("Create Entry")
         self.create_button.clicked.connect(self.create_entry)
@@ -65,11 +84,26 @@ class WiktionaryApp(QMainWindow):
 
     def create_entry(self):
         word = self.word_input.text().strip()
-        part_of_speech = "adv" if self.pos_radio_adv.isChecked() else "adj"
         definition = self.definition_input.text().strip()
         has_comparative = self.comparative_checkbox.isChecked()
+        if self.pos_radio_adv.isChecked():
+            create_wiktionary_entry(word, "adv", definition, has_comparative)
+        elif self.pos_radio_adj.isChecked():
+            create_wiktionary_entry(word, "adj", definition, has_comparative)
+        elif self.pos_radio_verb.isChecked():
+            raise NotImplementedError()
+        elif self.pos_radio_noun.isChecked():
+            if self.m_button.isChecked():
+                gender = "m"
+            elif self.n_button.isChecked():
+                gender = "n"
+            elif self.f_button.isChecked():
+                gender = "f"
+            else:
+                return
+            animacy = "an" if self.animate_checkbox.isChecked() else "in"
+            create_noun_wiktionary_entry(word, definition, gender, animacy)
 
-        create_wiktionary_entry(word, part_of_speech, definition, has_comparative)
         link = (
             f"https://en.wiktionary.org/w/index.php?title={word}&action=edit&redlink=1"
         )
