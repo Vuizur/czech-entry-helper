@@ -12,10 +12,12 @@ def surround_with_brackets(match: Match[str]) -> str:
     word = match.group(0)
     return f"[[{word}]]"
 
+def format_definition(definition: str) -> str:
+    return "# " + re.sub(r'\b\w+\b', surround_with_brackets, definition) 
 
 def create_wiktionary_entry(
     word: str,
-    pos: Literal["adv", "adj", "verb"],
+    pos: Literal["adv", "adj"],
     definition: str,
     form_comp: bool = False,
 ):
@@ -33,11 +35,11 @@ def create_wiktionary_entry(
         else:
             wikitext += "{{cs-adj}}"
         wikitext += "\n\n"
-        if " " in definition or "," in definition:
-            # Surround each word in definition with double square brackets
-            wikitext += "# " + re.sub(r'\b\w+\b', surround_with_brackets, definition)
-        else:
-            wikitext += f"# [[{definition}]]"
+        #if " " in definition or "," in definition:
+        #    # Surround each word in definition with double square brackets
+        wikitext += format_definition(definition)
+        #else:
+        #    wikitext += f"# [[{definition}]]"
         wikitext += "\n\n====Declension====\n"
         wikitext += "{{cs-adecl}}"
     elif pos == "adv":
@@ -48,7 +50,7 @@ def create_wiktionary_entry(
         else:
             wikitext += "{{cs-adv}}"
         wikitext += "\n\n"
-        wikitext += "# " + re.sub(r'\b\w+\b', surround_with_brackets, definition)  
+        wikitext += format_definition(definition)
 
     print(wikitext)
     pyperclip.copy(wikitext)
