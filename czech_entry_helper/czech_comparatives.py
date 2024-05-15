@@ -30,7 +30,7 @@ def print_non_adjectives_ending_in_ejší():
     with open("kaikki.org-dictionary-Czech.json", "r", encoding="utf-8") as f:
         for line in f:
             data = json.loads(line)
-            if data["word"].endswith("ější"):# and data["pos"] != "adj":
+            if data["word"].endswith("ější") and data["pos"] != "adj":
                 print(data["word"])
 
 
@@ -58,7 +58,7 @@ def search_adjectives_without_comparatives():
 # print(comp)
 # print(zipf_frequency("comp", "cs"))
 #search_adjectives_without_comparatives()
-#print_non_adjectives_ending_in_ejší()
+print_non_adjectives_ending_in_ejší()
 
 #c = form_comparative("špičatý")
 #print(c)
