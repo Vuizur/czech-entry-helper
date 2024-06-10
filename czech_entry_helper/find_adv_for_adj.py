@@ -26,15 +26,12 @@ with open("kaikki.org-dictionary-Czech.json", "r", encoding="utf-8") as f:
     for line in f:
         data = json.loads(line)
         if data["pos"] == "adj" and "forms" in data:
-            if data["word"].endswith("cí") and not data["word"].endswith("jící"):
-                print(data["word"])
-            #for form in data["forms"]:
-
-                #break
-                #    #if form["form"] != adjective_to_adverb(data["word"]):
-                #    if data["word"].endswith("cí"):
-                #        print(data["word"])
-                #        print(form["form"])
-                #        print(adjective_to_adverb(data["word"]))
-                #    break
+                for form in data["forms"]:
+                    if "adverb" in form["tags"]:
+                        if form["form"] != adjective_to_adverb(data["word"]):
+                        #if data["word"].endswith("cí"):
+                            print(data["word"])
+                            print(form["form"])
+                            print(adjective_to_adverb(data["word"]))
+                        break
 #
