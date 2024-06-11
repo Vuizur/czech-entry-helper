@@ -14,6 +14,8 @@ def adjective_to_adverb(word: str) -> str:
         return word[:-3] + "še"
     elif word.endswith("cký") or word.endswith("ský"):
         return word[:-2] + "ky"
+    elif word.endswith("hý"):
+        return word[:-2] + "ze"
     elif word.endswith("ký"):
         return word[:-2] + "ce"
     elif word.endswith("ý"):
@@ -26,6 +28,9 @@ with open("kaikki.org-dictionary-Czech.json", "r", encoding="utf-8") as f:
     for line in f:
         data = json.loads(line)
         if data["pos"] == "adj" and "forms" in data:
+                if data["word"].endswith("hý"):
+                    print(data["word"])
+                continue
                 for form in data["forms"]:
                     if "adverb" in form["tags"]:
                         if form["form"] != adjective_to_adverb(data["word"]):
