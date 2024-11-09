@@ -1,3 +1,5 @@
 Code for Czech adjectives
 is it blázena or blázna?
 * Automatically find short forms of adjectives
+Automatic detection of relational adjectives from nouns
+dozorce plural, add other word
